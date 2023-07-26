@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  # db mysql
+  vollmed-db:
+    image: mysql:5.7.37
+    environment:
+      MYSQL_DATABASE: vollmed_api
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: vollmed
+    volumes:
+      - ./.docker/mysql/dbdata:/var/lib/mysql
+    ports:
+      - "3388:3306"
+    networks:
+      - vollmed_api
+
+networks:
+  vollmed_api:
+    driver: bridge
