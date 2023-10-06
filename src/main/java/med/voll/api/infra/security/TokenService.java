@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -16,9 +17,12 @@ import med.voll.api.domain.usuario.Usuario;
 @Service
 public class TokenService {
     
+    @Value("api.secutiry.token.secret")
+    private String secret;
+
     public String gerarToken(Usuario usuario) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("chavesecreta");
+            Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                 .withIssuer("minha api")
                 .withSubject(usuario.getLogin())
